@@ -14,7 +14,7 @@ WORKDIR /dump1090-mutability
 RUN make clean
 RUN less dump1090.h
 RUN make
-RUN chmod +x Start.sh
+RUN chmod +x StartNode.sh
 
 RUN export LD_LIBRARY_PATH=/usr/local/lib/arm-linux-gnueabihf/
 
