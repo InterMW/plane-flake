@@ -84,7 +84,7 @@ static void log_with_timestamp(const char *format, ...)
 
     fprintf(stderr, "%s  %s\n", timebuf, msg);
 }
-
+MODETYPE Modes;
 static void sigintHandler(int dummy) {
     MODES_NOTUSED(dummy);
     signal(SIGINT, SIG_DFL);  // reset signal handler - bit extra safety
@@ -134,7 +134,6 @@ static void end_cpu_timing(const struct timespec *start_time, struct timespec *a
     add_to->tv_sec += add_to->tv_nsec / 1000000000L;
     add_to->tv_nsec = add_to->tv_nsec % 1000000000L;
 }
-
 //
 // =============================== Initialization ===========================
 //
