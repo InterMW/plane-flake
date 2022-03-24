@@ -1,4 +1,6 @@
 #!/bin/bash
+echo j > j
+echo $SOURCE > a
 export LD_LIBRARY_PATH=/usr/local/lib/arm-linux-gnueabihf && /dump1090-mutability/dump1090  \
 --rabbit-enable --rabbit-hostname rabbit.centurionx.net --rabbit-port 5672 \
 --rabbit-exchange InterTopic --rabbit-routingkey plane.proto --rabbit-user planey --rabbit-password mcplaneyface \
