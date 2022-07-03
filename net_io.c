@@ -1047,23 +1047,28 @@ char *generateAircraftJson(const char *url_path, int *len) {
         if (a->addrtype != ADDR_ADSB_ICAO)
             p += snprintf(p, end-p, ",\"type\":\"%s\"", addrtype_short_string(a->addrtype));
         if (trackDataValid(&a->squawk_valid))
-            p += snprintf(p, end-p, ",\"squawk\":\"%04x\"", a->squawk);
+            p += snprintf(p, end-p, ",\"squawk\":\"%04x\",\"squack_update\":%jd", a->squawk, a->squawk_valid.updated);
         if (trackDataValid(&a->callsign_valid))
-            p += snprintf(p, end-p, ",\"flight\":\"%s\"", jsonEscapeString(a->callsign));
+            p += snprintf(p, end-p, ",\"flight\":\"%s\",\"flight_update\":%jd", jsonEscapeString(a->callsign),a->callsign_valid.updated);
         if (trackDataValid(&a->position_valid))
-            p += snprintf(p, end-p, ",\"lat\":%f,\"lon\":%f,\"nucp\":%u,\"seen_pos\":%.1f", a->lat, a->lon, a->pos_nuc, (now - a->position_valid.updated)/1000.0);
+            p += snprintf(p, end-p, ",\"lat\":%f,\"lon\":%f,\"nucp\":%u,\"seen_pos\":%.1f,\"position_update\":%jd",
+            a->lat,
+            a->lon, 
+            a->pos_nuc, 
+            (now - a->position_valid.updated)/1000.0,
+            a->position_valid.updated);
         if (trackDataValid(&a->airground_valid) && a->airground_valid.source >= SOURCE_MODE_S_CHECKED && a->airground == AG_GROUND)
-            p += snprintf(p, end-p, ",\"altitude\":\"ground\"");
+            p += snprintf(p, end-p, ",\"altitude\":0,\"altitude_update\":%jd",a->altitude_valid.updated);
         else if (trackDataValid(&a->altitude_valid))
-            p += snprintf(p, end-p, ",\"altitude\":%d", a->altitude);
+            p += snprintf(p, end-p, ",\"altitude\":%d,\"altitude_update\":%jd", a->altitude, a->altitude_valid.updated);
         if (trackDataValid(&a->vert_rate_valid))
-            p += snprintf(p, end-p, ",\"vert_rate\":%d", a->vert_rate);
+            p += snprintf(p, end-p, ",\"vert_rate\":%d,\"vert_update\":%jd", a->vert_rate, a->vert_rate_valid.updated);
         if (trackDataValid(&a->heading_valid))
-            p += snprintf(p, end-p, ",\"track\":%d", a->heading);
+            p += snprintf(p, end-p, ",\"track\":%d, \"track_update\":%jd", a->heading, a->heading_valid.updated);
         if (trackDataValid(&a->speed_valid))
-            p += snprintf(p, end-p, ",\"speed\":%d", a->speed);
+            p += snprintf(p, end-p, ",\"speed\":%d, \"speed_update\":%jd", a->speed, a->speed_valid.updated);
         if (trackDataValid(&a->category_valid))
-            p += snprintf(p, end-p, ",\"category\":\"%02X\"", a->category);
+            p += snprintf(p, end-p, ",\"category\":\"%02X\", \"category_update\":%jd", a->category, a->category_valid.updated);
 
         p += snprintf(p, end-p, ",\"mlat\":");
         p = append_flags(p, end, a, SOURCE_MLAT);
