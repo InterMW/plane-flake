@@ -1,0 +1,15 @@
+FROM arm32v7/alpine:3.14
+
+RUN apk add cmake git tzdata make build-base libressl-dev librtlsdr-dev libusb-dev bash rabbitmq-c-dev
+
+WORKDIR /dump1090-mutability
+COPY . .
+RUN make clean
+RUN make
+RUN chmod +x Start.sh
+
+EXPOSE 30004
+EXPOSE 8080
+
+ENTRYPOINT [ "/dump1090-mutability/StartLow.sh" ]
+
