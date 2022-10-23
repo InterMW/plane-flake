@@ -839,13 +839,13 @@ void backgroundTasks(void) {
             }
         }
     }
-
     if (now >= next_json) {
        writeJsonToRabbit(conn,generateAircraftJson);
+       
         //here is where we will send the message
     
         //writeJsonToFile("aircraft.json", generateAircraftJson);
-        next_json = now + Modes.json_interval;
+        next_json = now + Modes.json_interval - now % 1000;
     }
     if (now >= next_history) {
         int rewrite_receiver_json = (Modes.json_dir && Modes.json_aircraft_history[HISTORY_SIZE-1].content == NULL);

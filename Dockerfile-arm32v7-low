@@ -1,4 +1,4 @@
-FROM arm32v7/alpine:3.14
+FROM arm32v7/alpine:3.12
 
 RUN apk add cmake git tzdata make build-base libressl-dev librtlsdr-dev libusb-dev bash rabbitmq-c-dev
 
@@ -10,6 +10,8 @@ RUN chmod +x Start.sh
 
 EXPOSE 30004
 EXPOSE 8080
+
+LABEL deunhealth.restart.on.unhealthy=true
 
 ENTRYPOINT [ "/dump1090-mutability/StartLow.sh" ]
 
