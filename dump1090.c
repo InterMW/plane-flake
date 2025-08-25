@@ -49,8 +49,8 @@
 
 #include "dump1090.h"
 #include "rabbitUtils.h"
-#include <rtl-sdr.h>
 #include <amqp_tcp_socket.h>
+#include <rtl-sdr.h>
 
 #include <stdarg.h>
 
