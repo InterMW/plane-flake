@@ -24,7 +24,11 @@
 
 		  src = ./.;
 
-		  nativeBuildInputs = [ autoreconfHook ];
+		  nativeBuildInputs = [ autoreconfHook  
+		    rabbitmq-c
+                    codespell
+		    rtl-sdr-osmocom
+			pkg-config];
 		};
 
 	};
