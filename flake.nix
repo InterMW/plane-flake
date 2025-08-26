@@ -19,7 +19,7 @@
     {
 	overlay = final: prev: {
 		dumpmutability = with final; stdenv.mkDerivation rec {
-		  pname = "dump1090";
+		  pname = "dump1080";
 		  inherit version;
 
 		  src = ./.;
